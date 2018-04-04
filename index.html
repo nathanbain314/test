@@ -11,11 +11,64 @@
 </style>
 </head>
 <body>
-<input id="fileupload" type="file" name="files[]" data-url="input/" multiple>
+Input images: <input id="fileupload" type="file" name="files[]" data-url="input/" multiple>
 
 <div id="progress">
     <div class="bar" style="width: 0%;"></div>
 </div>
+
+<br>
+<form method="get" action="generateMosaic.php">
+Reference image: <input type="file" name="fileToUpload" id="fileToUpload">
+
+<p> output: 
+<input type="text" id="outputName" name="name" value="output.png">
+</p>
+
+<p> numHorizontal: 
+<input type="text" id="numHorizontal" name="name" value="100">
+</p>
+
+<p> mosaicTileWidth: 
+<input type="text" id="mosaicTileWidth" name="name">
+</p>
+
+<p> mosaicTileHeight: 
+<input type="text" id="mosaicTileHeight" name="name">
+</p>
+
+<p> imageTileWidth: 
+<input type="text" id="imageTileWidth" name="name">
+</p>
+
+<p> repeat distance: 
+<input type="text" id="repeat" name="name">
+</p>
+
+<p> cropType: 
+<input type="radio" name="cropType" value="0" checked="checked"> 0
+<input type="radio" name="cropType" value="1"> 1
+<input type="radio" name="cropType" value="2"> 2
+<input type="radio" name="cropType" value="3"> 3
+</p>
+
+<p> spin: <input type="radio" name="spin" value="1"> on <input type="radio" name="spin" value="0" checked="checked"> off </p>
+<p> flip: <input type="radio" name="flip" value="1"> on <input type="radio" name="flip" value="0" checked="checked"> off </p>
+<p> trueColor: <input type="radio" name="trueColor" value="1"> on <input type="radio" name="trueColor" value="0" checked="checked"> off </p>
+
+<p> input images file: 
+<input type="text" id="file" name="name">
+</p>
+
+<input id="generateMosaic" type="submit" value="                            Generate Mosaic                            "/><br>
+</form>
+
+<br>
+<p> Clear images </p>
+<input id="delete1" type="button" value="Delete input images"/><br>
+<input id="delete4" type="button" value="Delete all mosaics"/><br>
+<input id="delete2" type="button" value="Delete only single image mosaics"/><br>
+<input id="delete3" type="button" value="Delete only zoomable mosaics"/><br>
 
 <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
 <script src="js/vendor/jquery.ui.widget.js"></script>
@@ -25,11 +78,6 @@
 $(function () {
     $('#fileupload').fileupload({
         dataType: 'json',
-        done: function (e, data) {
-            $.each(data.result.files, function (index, file) {
-                $('<p/>').text(file.name).appendTo(document.body);
-            });
-        },
         progressall: function (e, data) {
         var progress = parseInt(data.loaded / data.total * 100, 10);
         $('#progress .bar').css(
@@ -38,6 +86,32 @@ $(function () {
         );
     }
     });
+
+    $('delete1').click(function() {
+    $.ajax({
+        url: 'php/delete1.php'
+    });
+
+    $('delete2').click(function() {
+    $.ajax({
+        url: 'php/delete2.php'
+    });
+
+    $('delete3').click(function() {
+    $.ajax({
+        url: 'php/delete3.php'
+    });
+
+    $('delete4').click(function() {
+    $.ajax({
+        url: 'php/delete2.php'
+    },
+    {
+        url: 'php/delete3.php'
+    });
+
+    return false;
+});
 });
 </script>
 </body> 
