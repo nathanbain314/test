@@ -5,6 +5,7 @@
   move_uploaded_file($_FILES["fileToUpload"]["tmp_name"], $referenceImage);
 
   $outputName = $_POST['outputName'];
+  $outputUrl = $outputName;
 
   if (preg_match('/(\.jpg|\.png|\.bmp)$/', $outputName))
   {
@@ -13,6 +14,7 @@
   else
   {
     $outputName = "/var/www/html/zoomableMosaics/".$outputName;
+    $outputUrl = "LOCATION: ".$outputName."html";
   }
 
   $numHorizontal = $_POST['numHorizontal'];
@@ -43,9 +45,9 @@
   if($repeat!='') $str .= " -r ".$repeat;
   if($file!='') $str .= " --file ".$file;
 
-  $str .= " 2> /dev/null";
-
-  echo $str;
+  $str .= " > /dev/null";
 
   exec($str);
+
+  header($outputUrl);
 ?>
