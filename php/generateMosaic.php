@@ -26,7 +26,7 @@
   $trueColor = $_POST['trueColor'];
   $file = $_POST['file'];
 
-  $str = "/var/www/html/RunMosaic";
+  $str = "export LD_LIBRARY_PATH=/usr/local/lib/ && /var/www/html/RunMosaic";
   $str .= " -p ".$referenceImage;
   $str .= " -d /var/www/html/input/files/";
   $str .= " -o ".$outputName;
