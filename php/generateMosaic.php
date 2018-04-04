@@ -14,7 +14,7 @@
   }
   else
   {
-    $outputUrl = "/zoomableMosaics/".$outputName."html";
+    $outputUrl = "/zoomableMosaics/".$outputName.".html";
     $outputName = "/var/www/html/zoomableMosaics/".$outputName;
   }
 
@@ -29,7 +29,7 @@
   $trueColor = $_POST['trueColor'];
   $file = $_POST['file'];
 
-  $str = "export LD_LIBRARY_PATH=/usr/local/lib/ && /var/www/html/RunMosaic";
+  $str = "export LD_LIBRARY_PATH=/usr/local/lib/ && /var/www/html/RunMosaic -q";
   $str .= " -p ".$referenceImage;
   $str .= " -d /var/www/html/input/files/";
   $str .= " -o ".$outputName;
