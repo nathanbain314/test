@@ -8,11 +8,11 @@
 
   if (preg_match('/(\.jpg|\.png|\.bmp)$/', $outputName))
   {
-    $outputName = "mosaics".$outputName;
+    $outputName = "/var/www/html/mosaics/".$outputName;
   }
   else
   {
-    $outputName = "zoomableMosaics".$outputName;
+    $outputName = "/var/www/html/zoomableMosaics/".$outputName;
   }
 
   $numHorizontal = $_POST['numHorizontal'];
@@ -26,9 +26,9 @@
   $trueColor = $_POST['trueColor'];
   $file = $_POST['file'];
 
-  $str = "/home/nathanbain314/mosaic/RunMosaic";
+  $str = "/var/www/html/RunMosaic";
   $str .= " -p ".$referenceImage;
-  $str .= " -d input/files/";
+  $str .= " -d /var/www/html/input/files/";
   $str .= " -o ".$outputName;
   $str .= " -n ".$numHorizontal;
   $str .= " -c ".$cropType;
@@ -45,5 +45,7 @@
 
   $str .= " 2> /dev/null";
 
-  echo $str
+  echo $str;
+
+  exec($str);
 ?>
