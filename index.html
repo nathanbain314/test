@@ -18,7 +18,7 @@ Input images: <input id="fileupload" type="file" name="files[]" data-url="input/
 </div>
 
 <br>
-<form method="get" action="generateMosaic.php">
+<form method="get" action="php/generateMosaic.php">
 Reference image: <input type="file" name="fileToUpload" id="fileToUpload">
 
 <p> output: 
@@ -91,15 +91,18 @@ $(function () {
     $.ajax({
         url: 'php/delete1.php'
     });
+    });
 
     $('delete2').click(function() {
     $.ajax({
         url: 'php/delete2.php'
     });
+    });
 
     $('delete3').click(function() {
     $.ajax({
         url: 'php/delete3.php'
+    });
     });
 
     $('delete4').click(function() {
@@ -109,9 +112,9 @@ $(function () {
     {
         url: 'php/delete3.php'
     });
+    });
 
     return false;
-});
 });
 </script>
 </body> 
