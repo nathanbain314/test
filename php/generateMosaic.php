@@ -5,16 +5,17 @@
   move_uploaded_file($_FILES["fileToUpload"]["tmp_name"], $referenceImage);
 
   $outputName = $_POST['outputName'];
-  $outputUrl = $outputName;
+  $outputUrl = "LOCATION: ";
 
   if (preg_match('/(\.jpg|\.png|\.bmp)$/', $outputName))
   {
+    $outputUrl .= "/mosaics/".$outputName;
     $outputName = "/var/www/html/mosaics/".$outputName;
   }
   else
   {
+    $outputUrl = "/zoomableMosaics/".$outputName."html";
     $outputName = "/var/www/html/zoomableMosaics/".$outputName;
-    $outputUrl = "LOCATION: ".$outputName."html";
   }
 
   $numHorizontal = $_POST['numHorizontal'];
@@ -45,9 +46,13 @@
   if($repeat!='') $str .= " -r ".$repeat;
   if($file!='') $str .= " --file ".$file;
 
-  $str .= " > /dev/null";
-
   exec($str);
+
+  if(!preg_match('/(\.jpg|\.png|\.bmp)$/', $outputName))
+  {
+    exec("sudo sed -i 's/var outputName =.*/var outputName = \"".$_POST['outputName']."\/\"/' ".$outputUrl);
+    exec("sudo sed -i 's/var outputDirectory =.*/var outputDirectory = \"".$_POST['outputName']."\/zoom\/\"/' ".$outputUrl);
+  }
 
   header($outputUrl);
 ?>
