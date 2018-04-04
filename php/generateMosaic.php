@@ -4,17 +4,17 @@
 
   move_uploaded_file($_FILES["fileToUpload"]["tmp_name"], $referenceImage)
 
-  $outputName = $_POST['outputName'];
-  $numHorizontal = $_POST['numHorizontal'];
-  $mosaicTileWidth = $_POST['mosaicTileWidth'];
-  $mosaicTileHeight = $_POST['mosaicTileHeight'];
-  $imageTileWidth = $_POST['imageTileWidth'];
-  $repeat = $_POST['repeat'];
-  $cropType = $_POST['cropType'];
-  $spin = $_POST['spin'];
-  $flip = $_POST['flip'];
-  $trueColor = $_POST['trueColor'];
-  $file = $_POST['file'];
+  $outputName = $_GET['outputName'];
+  $numHorizontal = $_GET['numHorizontal'];
+  $mosaicTileWidth = $_GET['mosaicTileWidth'];
+  $mosaicTileHeight = $_GET['mosaicTileHeight'];
+  $imageTileWidth = $_GET['imageTileWidth'];
+  $repeat = $_GET['repeat'];
+  $cropType = $_GET['cropType'];
+  $spin = $_GET['spin'];
+  $flip = $_GET['flip'];
+  $trueColor = $_GET['trueColor'];
+  $file = $_GET['file'];
 
   $str = "/home/nathanbain314/mosaic/RunMosaic";
   $str1 .= " -p ".$referenceImage;

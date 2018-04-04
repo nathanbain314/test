@@ -18,31 +18,31 @@ Input images: <input id="fileupload" type="file" name="files[]" data-url="input/
 </div>
 
 <br>
-<form method="get" action="php/generateMosaic.php">
+<form method="get" action="php/generateMosaic.php" enctype="multipart/form-data">
 Reference image: <input type="file" name="fileToUpload" id="fileToUpload">
 
 <p> output: 
-<input type="text" id="outputName" name="name" value="output.png">
+<input type="text" id="outputName" name="outputName" value="output.png">
 </p>
 
 <p> numHorizontal: 
-<input type="text" id="numHorizontal" name="name" value="100">
+<input type="text" id="numHorizontal" name="numHorizontal" value="100">
 </p>
 
 <p> mosaicTileWidth: 
-<input type="text" id="mosaicTileWidth" name="name">
+<input type="text" id="mosaicTileWidth" name="mosaicTileWidth">
 </p>
 
 <p> mosaicTileHeight: 
-<input type="text" id="mosaicTileHeight" name="name">
+<input type="text" id="mosaicTileHeight" name="mosaicTileHeight">
 </p>
 
 <p> imageTileWidth: 
-<input type="text" id="imageTileWidth" name="name">
+<input type="text" id="imageTileWidth" name="imageTileWidth">
 </p>
 
 <p> repeat distance: 
-<input type="text" id="repeat" name="name">
+<input type="text" id="repeat" name="repeat">
 </p>
 
 <p> cropType: 
