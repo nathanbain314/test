@@ -5,6 +5,7 @@
   move_uploaded_file($_FILES["fileToUpload"]["tmp_name"], $referenceImage);
 
   $outputName = $_POST['outputName'];
+  $outputNameTMP = $outputName;
   $outputUrl = "LOCATION: ";
 
   if (preg_match('/(\.jpg|\.png|\.bmp)$/', $outputName))
@@ -50,8 +51,8 @@
 
   if(!preg_match('/(\.jpg|\.png|\.bmp)$/', $outputName))
   {
-    exec("sudo sed -i 's/var outputName =.*/var outputName = \"".$_POST['outputName']."\/\"/' ".$outputUrl);
-    exec("sudo sed -i 's/var outputDirectory =.*/var outputDirectory = \"".$_POST['outputName']."\/zoom\/\"/' ".$outputUrl);
+    exec("sudo sed -i 's/var outputName =.*/var outputName = \"".$outputNameTMP."\/\"/' /var/www/html/".$outputUrl);
+    exec("sudo sed -i 's/var outputDirectory =.*/var outputDirectory = \"".$outputNameTMP."\/zoom\/\"/' /var/www/html/".$outputUrl);
   }
 
   header($outputUrl);
