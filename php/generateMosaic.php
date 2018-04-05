@@ -15,7 +15,7 @@
   }
   else
   {
-    $outputUrl = "/zoomableMosaics/".$outputName.".html";
+    $outputUrl .= "/zoomableMosaics/".$outputName.".html";
     $outputName = "/var/www/html/zoomableMosaics/".$outputName;
   }
 
@@ -51,8 +51,8 @@
 
   if(!preg_match('/(\.jpg|\.png|\.bmp)$/', $outputName))
   {
-    exec("sudo sed -i 's/var outputName =.*/var outputName = \"".$outputNameTMP."\/\"/' /var/www/html/".$outputUrl);
-    exec("sudo sed -i 's/var outputDirectory =.*/var outputDirectory = \"".$outputNameTMP."\/zoom\/\"/' /var/www/html/".$outputUrl);
+    exec("sudo sed -i 's/var outputName =.*/var outputName = \"".$outputNameTMP."\/\"/' /var/www/html/"."/zoomableMosaics/".$outputNameTMP.".html");
+    exec("sudo sed -i 's/var outputDirectory =.*/var outputDirectory = \"".$outputNameTMP."\/zoom\/\"/' /var/www/html/"."/zoomableMosaics/".$outputNameTMP.".html");
   }
 
   header($outputUrl);
