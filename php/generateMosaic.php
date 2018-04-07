@@ -1,6 +1,6 @@
 <?php
   $target_dir = "/var/www/html/reference/files/";
-  $referenceImage = $target_dir . $_POST['referenceImage']);
+  $referenceImage = $target_dir . $_POST['referenceImage'];
 
   $outputName = $_POST['outputName'];
   $outputNameTMP = $outputName;
