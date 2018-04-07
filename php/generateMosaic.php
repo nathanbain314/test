@@ -1,8 +1,8 @@
 <?php
   $target_dir = "/var/www/html/reference/files/";
-  $referenceImage = $target_dir . $_POST['referenceImage'];
+  $referenceImage = "\"".$target_dir . $_POST['referenceImage']."\"";
 
-  $outputName = $_POST['outputName'];
+  $outputName = str_replace(" ", "_", $_POST['outputName']);
   $outputNameTMP = $outputName;
   $outputUrl = "LOCATION: ";
 
@@ -26,7 +26,7 @@
   $spin = $_POST['spin'];
   $flip = $_POST['flip'];
   $trueColor = $_POST['trueColor'];
-  $file = $_POST['file'];
+  $inputFile = $_POST['inputFile'];
 
   $str = "export LD_LIBRARY_PATH=/usr/local/lib/ && /var/www/html/RunMosaic -q";
   $str .= " -p ".$referenceImage;
@@ -43,7 +43,7 @@
   if($mosaicTileHeight!='') $str .= " -l ".$mosaicTileHeight;
   if($imageTileWidth!='') $str .= " -i ".$imageTileWidth;
   if($repeat!='') $str .= " -r ".$repeat;
-  if($file!='') $str .= " --file ".$file;
+  if($inputFile!='') $str .= " --file ".$inputFile;
 
   exec($str);
 
