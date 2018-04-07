@@ -11,15 +11,21 @@
 </style>
 </head>
 <body>
-Input images: <input id="fileupload" type="file" name="files[]" data-url="input/" multiple>
+Upload input images: <input id="fileupload" type="file" name="files[]" data-url="input/" multiple>
 
 <div id="progress">
     <div class="bar" style="width: 0%;"></div>
 </div>
 
+Upload reference image: <input id="referenceUpload" type="file" name="files[]" data-url="reference/">
+
+<div id="referenceProgress">
+    <div class="bar" style="width: 0%;"></div>
+</div>
+
 <br>
 <form method="post" action="php/generateMosaic.php" enctype="multipart/form-data">
-Reference image: <input type="file" name="fileToUpload" id="fileToUpload">
+Reference image: <input type="text" id="referenceImage" name="referenceImage" value="" readonly>
 
 <p> output: 
 <input type="text" id="outputName" name="outputName" value="output.png">
@@ -57,7 +63,7 @@ Reference image: <input type="file" name="fileToUpload" id="fileToUpload">
 <p> trueColor: <input type="radio" name="trueColor" value="1"> on <input type="radio" name="trueColor" value="0" checked="checked"> off </p>
 
 <p> input images file: 
-<input type="text" id="file" name="name">
+<input type="text" id="inputFile" name="name">
 </p>
 
 <input id="generateMosaic" type="submit" value="                            Generate Mosaic                            "/><br>
@@ -85,6 +91,22 @@ $(function () {
             progress + '%'
         );
     }
+    });
+
+    $('#referenceupload').fileupload({
+        dataType: 'json',
+        progressall: function (e, data) {
+        var progress = parseInt(data.loaded / data.total * 100, 10);
+        $('#referenceProgress .bar').css(
+            'width',
+            progress + '%'
+        );
+    },
+        done: function (e, data) {
+            $.each(data.result.files, function (index, file) {
+                $('#referenceImage').val(file.name);
+            });
+        }
     });
 
     $('#delete1').click(function() {

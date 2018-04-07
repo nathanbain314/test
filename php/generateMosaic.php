@@ -1,8 +1,6 @@
 <?php
-  $target_dir = "/var/www/html/reference/";
-  $referenceImage = $target_dir . basename($_FILES["fileToUpload"]["name"]);
-
-  move_uploaded_file($_FILES["fileToUpload"]["tmp_name"], $referenceImage);
+  $target_dir = "/var/www/html/reference/files/";
+  $referenceImage = $target_dir . $_POST['referenceImage']);
 
   $outputName = $_POST['outputName'];
   $outputNameTMP = $outputName;
