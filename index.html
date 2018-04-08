@@ -69,6 +69,19 @@ Reference image: <input type="text" id="referenceImage" name="referenceImage" va
 <input id="generateMosaic" type="submit" value="                            Generate Mosaic                            "/><br>
 </form>
 
+<div id="processImageProgress">
+    <div class="bar" style="width: 0%;"></div>
+</div>
+<div id="buildMosaicProgress">
+    <div class="bar" style="width: 0%;"></div>
+</div>
+<div id="generatingZoomablesProgress">
+    <div class="bar" style="width: 0%;"></div>
+</div>
+<div id="generatingLevelsProgress">
+    <div class="bar" style="width: 0%;"></div>
+</div>
+
 <br>
 <p> Clear images </p>
 <input id="delete1" type="button" value="Delete input images"/><br>
@@ -81,6 +94,79 @@ Reference image: <input type="text" id="referenceImage" name="referenceImage" va
 <script src="js/jquery.iframe-transport.js"></script>
 <script src="js/jquery.fileupload.js"></script>
 <script>
+function updateProgress() {
+    $.get("php/progress", function(response){
+        var parts = the_string.split(':', 2);
+
+        var type = parts[0];
+        var progress  = parseInt(parts[1]);
+
+        var done = false;
+
+        if(type == "Processing_images")
+        {
+            $('#processImageProgress .bar').css(
+                'width',
+                progress + '%'
+            );
+        }
+        else
+        {
+            $('#processImageProgress .bar').css(
+                'width',
+                100 + '%'
+            );
+
+            if(type == "Building_mosaic")
+            {
+                $('#buildMosaicProgress .bar').css(
+                    'width',
+                    progress + '%'
+                );
+
+                if( document.getElementById('outputName').value.indexOf('.') < 0 && progress == 100 ) done = true;
+
+            }
+            else
+            {
+                $('#buildMosaicProgress .bar').css(
+                    'width',
+                    100 + '%'
+                );
+
+
+                if(type == "Generating_zoomables")
+                {
+                    $('#generatingZoomablesProgress .bar').css(
+                        'width',
+                        progress + '%'
+                    );
+                }
+                else
+                {
+                    $('#buildMosaicProgress .bar').css(
+                        'width',
+                        100 + '%'
+                    );
+
+                    if(type == "Generating_levels")
+                    {
+                        $('#generatingLevelsProgress .bar').css(
+                            'width',
+                            progress + '%'
+                        );
+
+                        if( progress == 100 ) done = true;
+                    }
+                }
+            }
+        }
+
+    });
+
+    if( !done) setTimeout(updateProgress, 100);
+}
+
 $(function () {
 $('#mosaicForm').submit(function(e){
     e.preventDefault();
@@ -93,6 +179,7 @@ $('#mosaicForm').submit(function(e){
 //window.location.href = "/mosaics/output20.png";
         }
     });
+    updateProgress();
 });
 
     $('#fileupload').fileupload({
