@@ -124,7 +124,7 @@ function updateProgress() {
                     progress + '%'
                 );
 
-                if( document.getElementById('outputName').value.indexOf('.') < 0 && progress == 100 ) done = true;
+                if( document.getElementById('outputName').value.indexOf('.') > -1 && progress == 100 ) done = true;
 
             }
             else
@@ -162,9 +162,8 @@ function updateProgress() {
             }
         }
 
+        if( !done) setTimeout(updateProgress, 100);
     });
-
-    if( !done) setTimeout(updateProgress, 100);
 }
 
 $(function () {
@@ -179,6 +178,24 @@ $('#mosaicForm').submit(function(e){
 //window.location.href = "/mosaics/output20.png";
         }
     });
+
+            $('#processImageProgress .bar').css(
+                'width',
+                '0%'
+            );
+            $('#buildMosaicProgress .bar').css(
+                'width',
+                '0%'
+            );
+            $('#generatingZoomablesProgress .bar').css(
+                'width',
+                '0%'
+            );
+            $('#generatingLevelsProgress .bar').css(
+                'width',
+                '0%'
+            );
+
     updateProgress();
 });
 
