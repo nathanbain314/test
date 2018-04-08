@@ -53,5 +53,5 @@
     exec("sed -i 's/var outputDirectory =.*/var outputDirectory = \"".$outputNameTMP."\/zoom\/\"/' /var/www/html/zoomableMosaics/".$outputNameTMP.".html");
   }
 
-  header($outputUrl);
+  //header($outputUrl);
 ?>
