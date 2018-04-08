@@ -82,6 +82,19 @@ Reference image: <input type="text" id="referenceImage" name="referenceImage" va
 <script src="js/jquery.fileupload.js"></script>
 <script>
 $(function () {
+$('#mosaicForm').submit(function(e){
+    e.preventDefault();
+    $.ajax({
+        url:'php/generateMosaic.php',
+        type:'post',
+        data:$('#mosaicForm').serialize(),
+        success:function(){
+            //whatever you wanna do after the form is successfully submitted
+//window.location.href = "/mosaics/output20.png";
+        }
+    });
+});
+
     $('#fileupload').fileupload({
         dataType: 'json',
         progressall: function (e, data) {
