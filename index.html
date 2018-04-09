@@ -96,51 +96,39 @@ Reference image: <input type="text" id="referenceImage" name="referenceImage" va
 <script>
 function updateProgress() {
     $.get("php/progress", function(response){
-        var parts = the_string.split(':', 2);
-
-        var type = parts[0];
-        var progress  = parseInt(parts[1]);
 
         var done = false;
 
-        if(type == "Processing_images")
+        if(response!="")
         {
-            $('#processImageProgress .bar').css(
-                'width',
-                progress + '%'
-            );
-        }
-        else
-        {
-            $('#processImageProgress .bar').css(
-                'width',
-                100 + '%'
-            );
+            var parts = response.split(':', 2);
 
-            if(type == "Building_mosaic")
+            var type = parts[0];
+            var progress  = parseFloat(parts[1]);
+
+            if(type == "Processing_images")
             {
-                $('#buildMosaicProgress .bar').css(
+                $('#processImageProgress .bar').css(
                     'width',
                     progress + '%'
                 );
-
-                if( document.getElementById('outputName').value.indexOf('.') > -1 && progress == 100 ) done = true;
-
             }
             else
             {
-                $('#buildMosaicProgress .bar').css(
+                $('#processImageProgress .bar').css(
                     'width',
                     100 + '%'
                 );
 
-
-                if(type == "Generating_zoomables")
+                if(type == "Building_mosaic")
                 {
-                    $('#generatingZoomablesProgress .bar').css(
+                    $('#buildMosaicProgress .bar').css(
                         'width',
                         progress + '%'
                     );
+
+                    if( document.getElementById('outputName').value.indexOf('.') > -1 && progress == 100 ) done = true;
+
                 }
                 else
                 {
@@ -149,14 +137,30 @@ function updateProgress() {
                         100 + '%'
                     );
 
-                    if(type == "Generating_levels")
+
+                    if(type == "Generating_zoomables")
                     {
-                        $('#generatingLevelsProgress .bar').css(
+                        $('#generatingZoomablesProgress .bar').css(
                             'width',
                             progress + '%'
                         );
+                    }
+                    else
+                    {
+                        $('#generatingZoomablesProgress .bar').css(
+                            'width',
+                            100 + '%'
+                        );
 
-                        if( progress == 100 ) done = true;
+                        if(type == "Generating_levels")
+                        {
+                            $('#generatingLevelsProgress .bar').css(
+                                'width',
+                                progress + '%'
+                            );
+
+                            if( progress == 100 ) done = true;
+                        }
                     }
                 }
             }

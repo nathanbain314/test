@@ -1,4 +1,6 @@
 <?php
+  file_put_contents ("progress","Processing_images:0");
+
   $target_dir = "/var/www/html/reference/files/";
   $referenceImage = "\"".$target_dir . $_POST['referenceImage']."\"";
 
