@@ -6,8 +6,6 @@
 
 std::chrono::steady_clock::time_point begin = std::chrono::steady_clock::now();
 
-std::chrono::steady_clock::time_point end= std::chrono::steady_clock::now();
-
 ProgressBar::ProgressBar() {}
 
 ProgressBar::ProgressBar(unsigned long n_, const char* description_, std::ostream& out_){
@@ -90,6 +88,8 @@ void ProgressBar::Progressed(unsigned long idx_)
 
         // calculate the percentage value of a unit bar 
         double percent_per_unit_bar = TOTAL_PERCENTAGE/bar_size;
+
+        std::chrono::steady_clock::time_point end = std::chrono::steady_clock::now();
 
         if(std::chrono::duration_cast<std::chrono::milliseconds>(end - begin).count() > 100 || progress_percent==100)
         {
